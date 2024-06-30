@@ -6,18 +6,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import java.lang.ref.WeakReference
 
 
-class ImageAdapter(private val imageUrls: List<String>, private val lifecycleOwner: LifecycleOwner) : RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
+class ImageAdapter(private val imageUrls: List<String>) : RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
 
     class ImageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val imageView: ImageView = view.findViewById(R.id.imageView)
       //  var imageLoadJob: Job? = null
       var imageLoadTask: ImageLoadTask? = null
         fun loadImage(imageUrl: String) {
+            if(imageView.drawable == null){
+                imageView.setImageResource(R.drawable.placeholder)
+            }
+
             imageLoadTask?.cancel(true)
             imageLoadTask = ImageLoadTask(imageView)
             imageLoadTask?.execute(imageUrl)
@@ -43,7 +46,7 @@ class ImageAdapter(private val imageUrls: List<String>, private val lifecycleOwn
         //holder.imageLoadJob?.cancel()
         holder.loadImage(imageUrl)
 
-        // Keeping these code just to show my initial Approach
+        // Keeping these code just to show my initial Approach with coroutines
 
 //        holder.imageLoadJob = CoroutineScope(Dispatchers.IO).launch {
 //            val bitmap = ImageLoader.getBitmap(imageUrl)

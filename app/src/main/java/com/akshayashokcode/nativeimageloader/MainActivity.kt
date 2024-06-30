@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = GridLayoutManager(this, 3)
 
         imageViewModel.imageUrls.observe(this) { imageUrls ->
-            imageAdapter = ImageAdapter(imageUrls, this)
+            imageAdapter = ImageAdapter(imageUrls)
             recyclerView.adapter = imageAdapter
         }
 
