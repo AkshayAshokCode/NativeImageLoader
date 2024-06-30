@@ -26,7 +26,11 @@ class ImageAdapter(private val imageUrls: List<String>, private val lifecycleOwn
     }
 
     override fun getItemId(position: Int): Long {
-        return imageUrls[position].toLong()
+        return position.toLong()
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item, parent, false)
